@@ -1,0 +1,42 @@
+version: "3.3"
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: myapp_development
+    ports:
+      - "5432:5432"
+  web:
+    build: .
+    volumes:
+      - .:/myapp
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: myapp_development
+      POSTGRES_HOST: db
+      POSTGRES_PORT: '5432'
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - migration
+    command: ["rails", "server", "-b", "0.0.0.0"]
+
+  migration:
+    build: .
+    volumes:
+      - .:/myapp
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: myapp_development
+      POSTGRES_HOST: db
+      POSTGRES_PORT: '5432'
+    command: ["rails", "db:migrate"]
+    depends_on:
+      - db
