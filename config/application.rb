@@ -23,6 +23,8 @@ Bundler.require(*Rails.groups)
 
 module Myapp
   class Application < Rails::Application
+    config.active_record.legacy_connection_handling = false
+
     config.i18n.available_locales = [:en, :de]
     config.i18n.default_locale = :en
     # Initialize configuration defaults for originally generated Rails version.
@@ -30,7 +32,7 @@ module Myapp
     config.time_zone = 'Berlin'
     config.active_record.default_timezone = :utc
     # Configuration for the application, engines, and railties goes here.
-    #
+    #/home/mahmoud/Desktop/projects/myapp/config/application.rb
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #

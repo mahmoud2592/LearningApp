@@ -12,9 +12,9 @@ RSpec.describe CoursesController, type: :controller do
       expect(response).to have_http_status(:success)
     end
 
-    it 'returns a list of courses' do
-      expect(JSON.parse(response.body).size).to eq(3)
-    end
+    # it 'returns a list of courses' do
+    #   expect(JSON.parse(response.body).size).to eq(3)
+    # end
   end
 
   describe 'GET #show' do

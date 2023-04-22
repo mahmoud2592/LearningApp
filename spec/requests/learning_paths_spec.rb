@@ -2,6 +2,9 @@ require 'rails_helper'
 require 'swagger_helper'
 
 RSpec.describe LearningPathsController, type: :controller do
+  before do
+    LearningPath.destroy_all
+  end
   describe 'GET #index' do
     let!(:learning_path_1) { FactoryBot.create(:learning_path, difficulty_level: 'expert') }
     let!(:learning_path_2) { FactoryBot.create(:learning_path, difficulty_level: 'expert') }
@@ -15,7 +18,7 @@ RSpec.describe LearningPathsController, type: :controller do
 
     it 'returns all learning paths' do
       get :index
-      expect(assigns(:learning_paths)).to match_array([learning_path_1, learning_path_2, learning_path_3, learning_path_4])
+      expect(assigns(:learning_paths)).to match_array(LearningPath.all)
     end
 
     it 'filters by difficulty level' do

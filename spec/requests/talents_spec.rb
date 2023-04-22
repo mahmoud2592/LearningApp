@@ -78,7 +78,7 @@ RSpec.describe TalentsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    let!(:talent) { create(:talent) }
+    let!(:talent) { FactoryBot.create(:talent) }
 
     it 'destroys the talent' do
       expect {
