@@ -30,4 +30,8 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  http_errors:
+    not_found: 'The requested resource was not found.'
+    unauthorized: 'You are not authorized to perform this action.'
+    forbidden: 'You are forbidden from performing this action.'
+    bad_request: 'The request could not be understood by the server.'

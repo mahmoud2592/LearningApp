@@ -1,5 +1,5 @@
 # Base image:
-FROM ruby:3.0.3-alpine3.14
+FROM ruby:3.1.1-alpine3.14
 
 # Install dependencies:
 RUN apk add --update --no-cache \

@@ -1,0 +1,6 @@
+de:
+  http_errors:
+    not_found: 'Die angeforderte Ressource wurde nicht gefunden.'
+    unauthorized: 'Sie sind nicht berechtigt, diese Aktion auszuführen.'
+    forbidden: 'Sie sind nicht berechtigt, diese Aktion auszuführen.'
+    bad_request: 'Die Anfrage konnte vom Server nicht verstanden werden.'
