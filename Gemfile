@@ -41,8 +41,8 @@ gem 'rack-cors', require: 'rack/cors'
 #   gem 'shoulda-matchers', '~> 4.0'
 # end
 
-# Use swagger-ui-engine for API documentation
-gem 'swagger_ui_engine'
+# # Use swagger-ui-engine for API documentation
+# gem 'swagger_ui_engine'
 
 # Use rails-i18n for internationalization support
 gem 'rails-i18n'
@@ -60,3 +60,10 @@ gem 'faker', '~> 2.20'
   # Use shoulda-matchers for testing Rails applications
 gem 'shoulda-matchers', '~> 4.0'
 gem 'rails-controller-testing'
+gem "rswag", '~> 2.8.0'
+gem "rswag-specs"
+
+
+
+# # Use appmap for API documentation
+# gem 'appmap'

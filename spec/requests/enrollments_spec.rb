@@ -1,4 +1,6 @@
 require 'rails_helper'
+require 'swagger_helper'
+
 RSpec.describe EnrollmentsController, type: :controller do
   # before do
   #   FactoryBot.create_list(:enrollment, 20)

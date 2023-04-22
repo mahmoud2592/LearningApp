@@ -1,4 +1,6 @@
 require 'rails_helper'
+require 'swagger_helper'
+
 RSpec.describe LearningPathsController, type: :controller do
   describe 'GET #index' do
     let!(:learning_path_1) { FactoryBot.create(:learning_path, difficulty_level: 'expert') }

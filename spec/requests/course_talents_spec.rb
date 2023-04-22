@@ -1,4 +1,6 @@
 require 'rails_helper'
+require 'swagger_helper'
+
 RSpec.describe CourseTalentsController, type: :controller do
   let(:course) { FactoryBot.create(:course) }
   let(:talent) { FactoryBot.create(:talent) }

@@ -17,12 +17,17 @@ require 'http_errors'
 
 
 RSpec.configure do |config|
-  config.include HttpErrors, type: :controller
+  config.include HttpErrors::Rescuable, type: :controller
   config.around do |example|
     ActiveRecord::Base.connection.disable_referential_integrity do
       example.run
     end
   end
+
+  config.mock_with :rspec do |mocks|
+    mocks.verify_partial_doubles = true
+  end
+  config.shared_context_metadata_behavior = :apply_to_host_groups
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

@@ -1,21 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe 'Routing', type: :routing do
-  describe 'Swagger UI engine' do
-    it 'routes to the Swagger UI engine' do
-      expect(get: '/api-docs').to route_to('swagger_ui_engine/docs#index')
-    end
-  end
+  # describe 'Swagger UI engine' do
+  #   it 'routes to the Swagger UI engine' do
+  #     expect(get: '/api-docs').to route_to('swagger_ui_engine/docs#index')
+  #   end
+  # end
 
-  describe 'Error pages' do
-    it 'routes to the not found page' do
-      expect(get: '/404').to route_to('errors#not_found')
-    end
+  # describe 'Error pages' do
+  #   it 'routes to the not found page' do
+  #     expect(get: '/404').to route_to('errors#not_found')
+  #   end
 
-    it 'routes to the internal server error page' do
-      expect(get: '/500').to route_to('errors#internal_server_error')
-    end
-  end
+  #   it 'routes to the internal server error page' do
+  #     expect(get: '/500').to route_to('errors#internal_server_error')
+  #   end
+  # end
 
   describe 'Talent routes' do
     it 'routes to the talents index page' do

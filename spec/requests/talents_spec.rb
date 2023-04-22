@@ -1,6 +1,5 @@
-# spec/controllers/talents_controller_spec.rb
-
 require 'rails_helper'
+require 'swagger_helper'
 
 RSpec.describe TalentsController, type: :controller do
   describe 'GET #index' do

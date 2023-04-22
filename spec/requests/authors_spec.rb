@@ -1,5 +1,7 @@
 
 require 'rails_helper'
+require 'swagger_helper'
+
 RSpec.describe AuthorsController, type: :controller do
   describe "GET #index" do
     it "returns http success" do
