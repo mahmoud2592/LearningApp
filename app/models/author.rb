@@ -3,6 +3,9 @@ class Author < ApplicationRecord
 
   has_many :courses
 
+  validates :name, presence: true
+
+
   # Scope to find authors who have published at least one course
   scope :with_published_courses, -> { includes(:courses).where(courses: { published: true }).group("authors.id").having("COUNT(courses.id) > 0") }
 

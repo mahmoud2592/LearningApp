@@ -7,9 +7,11 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
+  resources :learning_paths do
+    resources :courses, only: [:index, :create, :destroy]
+  end
   resources :talents
   resources :authors
-  resources :learning_paths
   resources :courses
   resources :enrollments
   resources :course_talents

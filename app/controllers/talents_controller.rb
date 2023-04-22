@@ -3,7 +3,7 @@ class TalentsController < ApplicationController
 
   # GET /talents
   def index
-    @talents = Talent.all
+    @talents = Talent.all.page(params[:page]).per(params[:per_page] || 10)
     render json: @talents
   end
 

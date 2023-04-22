@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
-  include HttpErrors::Rescuable
-
+  include HttpErrors
+  require_relative '../lib/http_errors'
   rescue_from HttpErrors::NotFoundError, with: :render_not_found
   rescue_from HttpErrors::UnauthorizedError, with: :render_unauthorized
   rescue_from HttpErrors::ForbiddenError, with: :render_forbidden

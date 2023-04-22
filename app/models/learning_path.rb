@@ -26,6 +26,8 @@ class LearningPath < ApplicationRecord
   scope :popular, -> { where('views_count >= ?', 100) }
   scope :newest_first, -> { order(created_at: :desc) }
   scope :oldest_first, -> { order(created_at: :asc) }
+  scope :by_difficulty_level, ->(difficulty_level) { where(difficulty_level: difficulty_level) }
+
 
   before_save :set_duration_in_weeks
 

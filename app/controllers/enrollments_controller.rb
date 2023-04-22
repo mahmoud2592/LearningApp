@@ -2,7 +2,7 @@ class EnrollmentsController < ApplicationController
   before_action :set_enrollment, only: [:show, :update, :destroy]
 
   def index
-    @enrollments = Enrollment.includes(:talent, :learning_path).paginate(page: params[:page], per_page: params[:per_page] || 10)
+    @enrollments = Enrollment.includes(:talent, :learning_path)
     filter_enrollments
     render json: @enrollments, include: [:talent, :learning_path]
   end

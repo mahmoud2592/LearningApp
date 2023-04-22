@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :course do
     name { Faker::Educator.course_name }
     description { Faker::Lorem.paragraph }
-    slug { Faker::Internet.slug }
+    slug { Faker::Internet.unique.slug }
     video_url { Faker::Internet.url }
     duration { Faker::Number.between(from: 1, to: 9999) }
     difficulty { Faker::Number.between(from: 1, to: 3) }

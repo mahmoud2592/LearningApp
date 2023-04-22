@@ -13,7 +13,11 @@
 # it.
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require 'http_errors'
+
+
 RSpec.configure do |config|
+  config.include HttpErrors, type: :controller
   config.around do |example|
     ActiveRecord::Base.connection.disable_referential_integrity do
       example.run

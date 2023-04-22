@@ -3,9 +3,9 @@ class AuthorsController < ApplicationController
 
   # GET /authors
   def index
-    @authors = Author.all
+    @authors = Author.all.page(params[:page]).per(params[:per_page] || 10)
 
-    render json: authors
+    render json: @authors
   end
 
   # GET /authors/1
@@ -17,25 +17,25 @@ class AuthorsController < ApplicationController
   def create
     @author = Author.new(author_params)
 
-    if author.save
-      render json: author, status: :created, location: author
+    if @author.save
+      render json: @author, status: :created, location: @author
     else
-      render json: author.errors, status: :unprocessable_entity
+      render json: @author.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /authors/1
   def update
     if @author.update(author_params)
-      render json: author
+      render json: @author
     else
-      render json: author.errors, status: :unprocessable_entity
+      render json: @author.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /authors/1
   def destroy
-    author.destroy
+    @author.destroy
   end
 
   private

@@ -9,6 +9,11 @@ class LearningPathsController < ApplicationController
       @learning_paths = @learning_paths.by_difficulty_level(params[:difficulty_level])
     end
 
+    # Filter by published
+    if params[:published]
+      @learning_paths = @learning_paths.published
+    end
+
     # Filter by search query
     if params[:q].present?
       @learning_paths = @learning_paths.search(params[:q])
