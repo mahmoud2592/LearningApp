@@ -1,30 +1,10 @@
 # Base image:
-FROM ruby:3.1.1-alpine3.14
+FROM ruby:3.1.1
 
-# Install dependencies:
-RUN apk add --update --no-cache \
-    build-base \
-    postgresql-dev \
-    tzdata \
-    nodejs \
-    yarn
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 
-# Set working directory:
 WORKDIR /myapp
-
-# Copy Gemfile and Gemfile.lock to the container:
-COPY Gemfile Gemfile.lock ./
-
-# Install gems:
-RUN gem install bundler && \
-    bundle config set without 'development test' && \
-    bundle install
-
-# Copy the rest of the application code to the container:
-COPY . .
-
-# Expose port 3000:
-EXPOSE 3000
-
-# Set the command to start the server:
-CMD ["rails", "server", "-b", "0.0.0.0"]
+COPY Gemfile /myapp/Gemfile
+COPY Gemfile.lock /myapp/Gemfile.lock
+RUN bundle install
+COPY Gemfile /myapp/Gemfile

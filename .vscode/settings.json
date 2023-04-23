@@ -1,7 +1,0 @@
-{
-    "i18n-ally.localesPaths": [
-        "config/locales"
-    ],
-    "i18n-ally.keystyle": "nested",
-    "vue.features.codeActions.enable": false
-}
