@@ -30,20 +30,19 @@ gem 'active_model_serializers', '~> 0.10'
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors', require: 'rack/cors'
 
-group :development, :test do
-# Use RSpec for testing
-gem 'rspec-rails', '~> 5.0'
-  # Use factory_bot_rails for generating test data
-gem 'factory_bot_rails', '~> 6.0'
-  # Use faker for generating fake data for testing
-gem 'faker', '~> 2.20'
-  # Use shoulda-matchers for testing Rails applications
-gem 'shoulda-matchers', '~> 4.0'
-gem 'rails-controller-testing'
-gem "rswag", '~> 2.8.0'
-gem "rswag-specs"
-
-end
+# group :development, :test do
+  # Use RSpec for testing
+  gem 'rspec-rails', '~> 5.0'
+    # Use factory_bot_rails for generating test data
+  gem 'factory_bot_rails', '~> 6.0'
+    # Use faker for generating fake data for testing
+  gem 'faker', '~> 2.20'
+    # Use shoulda-matchers for testing Rails applications
+  gem 'shoulda-matchers', '~> 4.0'
+  gem 'rails-controller-testing'
+  gem "rswag", '~> 2.8.0'
+  gem "rswag-specs"
+# end
 
 # # Use swagger-ui-engine for API documentation
 # gem 'swagger_ui_engine'

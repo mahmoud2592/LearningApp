@@ -1,7 +1,7 @@
 require 'rails_helper'
 RSpec.describe Talent, type: :model do
   describe "validations" do
-    subject { build(:talent) }
+    subject { FactoryBot.build(:talent) }
 
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:category) }

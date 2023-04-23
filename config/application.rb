@@ -24,6 +24,7 @@ Bundler.require(*Rails.groups)
 module Myapp
   class Application < Rails::Application
     config.active_record.legacy_connection_handling = false
+    config.action_controller.urlsafe_csrf_tokens = true
 
     config.i18n.available_locales = [:en, :de]
     config.i18n.default_locale = :en
