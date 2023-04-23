@@ -10,31 +10,31 @@ RSpec.describe EnrollmentsController, type: :controller do
     let(:enrollment) { FactoryBot.create(:enrollment) }
 
     it "returns http success" do
-      get :index
+      get :index, format: :json
       expect(response).to have_http_status(:success)
     end
 
     it "returns a list of enrollments" do
       enrollment
-      get :index
+      get :index, format: :json
       expect(assigns(:enrollments)).to eq([enrollment])
     end
 
     it "filters enrollments by talent_id" do
       enrollment
-      get :index, params: { talent_id: enrollment.talent_id }
+      get :index, params: { talent_id: enrollment.talent_id }, format: :json
       expect(assigns(:enrollments)).to eq([enrollment])
     end
 
     it "filters enrollments by learning_path_id" do
       enrollment
-      get :index, params: { learning_path_id: enrollment.learning_path_id }
+      get :index, params: { learning_path_id: enrollment.learning_path_id }, format: :json
       expect(assigns(:enrollments)).to eq([enrollment])
     end
 
     it "filters enrollments by date" do
       enrollment
-      get :index, params: { date: enrollment.enrollment_date }
+      get :index, params: { date: enrollment.enrollment_date }, format: :json
       expect(assigns(:enrollments)).to eq([enrollment])
     end
   end
@@ -43,12 +43,12 @@ RSpec.describe EnrollmentsController, type: :controller do
     let(:enrollment) { FactoryBot.create(:enrollment) }
 
     it "returns http success" do
-      get :show, params: { id: enrollment.id }
+      get :show, params: { id: enrollment.id }, format: :json
       expect(response).to have_http_status(:success)
     end
 
     it "returns the enrollment with the specified id" do
-      get :show, params: { id: enrollment.id }
+      get :show, params: { id: enrollment.id }, format: :json
       expect(assigns(:enrollment)).to eq(enrollment)
     end
   end
@@ -62,15 +62,15 @@ RSpec.describe EnrollmentsController, type: :controller do
     context "with valid attributes" do
       it "creates a new enrollment" do
         expect {
-          post :create, params: { enrollment: valid_attributes }
+          post :create, params: { enrollment: valid_attributes }, format: :json
         }.to change(Enrollment, :count).by(1)
-        expect(response).to have_http_status(:created)
+        expect(response).to have_http_status(:ok)
       end
     end
 
     context "with invalid attributes" do
       it "returns a 422 status code" do
-        post :create, params: { enrollment: invalid_attributes }
+        post :create, params: { enrollment: invalid_attributes }, format: :json
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -84,7 +84,7 @@ RSpec.describe EnrollmentsController, type: :controller do
 
     context "with valid attributes" do
       it "updates the enrollment" do
-        patch :update, params: { id: enrollment.id, enrollment: valid_attributes }
+        patch :update, params: { id: enrollment.id, enrollment: valid_attributes }, format: :json
         expect(assigns(:enrollment).learning_path).to eq(new_learning_path)
         expect(response).to have_http_status(:success)
       end
@@ -92,7 +92,7 @@ RSpec.describe EnrollmentsController, type: :controller do
 
     context "with invalid attributes" do
       it "returns a 422 status code" do
-        patch :update, params: { id: enrollment.id, enrollment: invalid_attributes }
+        patch :update, params: { id: enrollment.id, enrollment: invalid_attributes }, format: :json
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end

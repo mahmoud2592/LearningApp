@@ -4,12 +4,12 @@ class TalentsController < ApplicationController
   # GET /talents
   def index
     @talents = Talent.all.page(params[:page]).per(params[:per_page] || 10)
-    render json: @talents
+    render :index, status: :ok
   end
 
   # GET /talents/:id
   def show
-    render json: @talent
+    render :show, status: :ok
   end
 
   # POST /talents
@@ -17,7 +17,7 @@ class TalentsController < ApplicationController
     @talent = Talent.new(talent_params)
 
     if @talent.save
-      render json: @talent, status: :created, location: @talent
+      render :show, status: :ok
     else
       render json: @talent.errors, status: :unprocessable_entity
     end
@@ -26,7 +26,7 @@ class TalentsController < ApplicationController
   # PATCH/PUT /talents/:id
   def update
     if @talent.update(talent_params)
-      render json: @talent
+      render :show, status: :ok
     else
       render json: @talent.errors, status: :unprocessable_entity
     end

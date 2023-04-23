@@ -37,7 +37,7 @@ class LearningPathsController < ApplicationController
     @learning_path = LearningPath.new(learning_path_params)
 
     if @learning_path.save
-      render :create, status: :created
+      render :show, status: :created
     else
       render json: @learning_path.errors, status: :unprocessable_entity
     end
@@ -45,7 +45,7 @@ class LearningPathsController < ApplicationController
 
   def update
     if @learning_path.update(learning_path_params)
-      render json: @learning_path
+      render :show, status: :created
     else
       render json: @learning_path.errors, status: :unprocessable_entity
     end

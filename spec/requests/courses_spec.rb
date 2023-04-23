@@ -5,23 +5,23 @@ RSpec.describe CoursesController, type: :controller do
   describe 'GET #index' do
     before do
       FactoryBot.create_list(:course, 3)
-      get :index
+      get :index, format: :json
     end
 
     it 'returns http success' do
-      expect(response).to have_http_status(:success)
+      expect(response).to have_http_status(:success), format: :json
     end
 
-    # it 'returns a list of courses' do
-    #   expect(JSON.parse(response.body).size).to eq(3)
-    # end
+    it 'returns a list of courses' do
+      expect(JSON.parse(response.body).size).to eq(3)
+    end
   end
 
   describe 'GET #show' do
     let!(:course) { FactoryBot.create(:course) }
 
     before do
-      get :show, params: { id: course.id }
+      get :show, params: { id: course.id }, format: :json
     end
 
     it 'returns http success' do
@@ -41,9 +41,9 @@ RSpec.describe CoursesController, type: :controller do
 
       it 'creates a new course' do
         expect {
-          post :create, params: { course: course_attributes }
+          post :create, params: { course: course_attributes }, format: :json
         }.to change(Course, :count).by(1)
-        expect(response).to have_http_status(:created)
+        expect(response).to have_http_status(:ok)
       end
     end
 
@@ -52,12 +52,12 @@ RSpec.describe CoursesController, type: :controller do
 
       it 'does not create a new course' do
         expect {
-          post :create, params: { course: invalid_attributes }
+          post :create, params: { course: invalid_attributes }, format: :json
         }.to_not change(Course, :count)
       end
 
       it 'returns http unprocessable entity' do
-        post :create, params: { course: invalid_attributes }
+        post :create, params: { course: invalid_attributes }, format: :json
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -70,7 +70,7 @@ RSpec.describe CoursesController, type: :controller do
       let(:new_attributes) { { name: 'New Name' } }
 
       before do
-        patch :update, params: { id: course.id, course: new_attributes }
+        patch :update, params: { id: course.id, course: new_attributes }, format: :json
       end
 
       it 'returns http success' do
@@ -86,7 +86,7 @@ RSpec.describe CoursesController, type: :controller do
       let(:invalid_attributes) { { name: nil } }
 
       before do
-        patch :update, params: { id: course.id, course: invalid_attributes }
+        patch :update, params: { id: course.id, course: invalid_attributes }, format: :json
       end
 
       it 'returns http unprocessable entity' do
@@ -104,12 +104,12 @@ RSpec.describe CoursesController, type: :controller do
 
     it 'destroys the course' do
       expect {
-        delete :destroy, params: { id: course.id }
+        delete :destroy, params: { id: course.id }, format: :json
       }.to change(Course, :count).by(-1)
     end
 
     it 'returns http no content' do
-      delete :destroy, params: { id: course.id }
+      delete :destroy, params: { id: course.id }, format: :json
       expect(response).to have_http_status(:no_content)
     end
   end

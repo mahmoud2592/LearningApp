@@ -4,18 +4,18 @@ class EnrollmentsController < ApplicationController
   def index
     @enrollments = Enrollment.includes(:talent, :learning_path)
     filter_enrollments
-    render json: @enrollments, include: [:talent, :learning_path]
+    render :index, include: [:talent, :learning_path], status: :ok
   end
 
   def show
-    render json: @enrollment, include: [:talent, :learning_path]
+    render :show, include: [:talent, :learning_path], status: :ok
   end
 
   def create
     @enrollment = Enrollment.new(enrollment_params)
 
     if @enrollment.save
-      render json: @enrollment, status: :created, include: [:talent, :learning_path]
+      render :show, include: [:talent, :learning_path], status: :ok
     else
       render json: @enrollment.errors, status: :unprocessable_entity
     end
@@ -23,7 +23,7 @@ class EnrollmentsController < ApplicationController
 
   def update
     if @enrollment.update(enrollment_params)
-      render json: @enrollment, include: [:talent, :learning_path]
+      render :show, include: [:talent, :learning_path], status: :ok
     else
       render json: @enrollment.errors, status: :unprocessable_entity
     end

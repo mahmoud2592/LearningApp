@@ -5,12 +5,12 @@ class AuthorsController < ApplicationController
   def index
     @authors = Author.all.page(params[:page]).per(params[:per_page] || 10)
 
-    render json: @authors
+    render :index, status: :ok
   end
 
   # GET /authors/1
   def show
-    render json: @author
+    render :show, status: :ok
   end
 
   # POST /authors
@@ -18,7 +18,7 @@ class AuthorsController < ApplicationController
     @author = Author.new(author_params)
 
     if @author.save
-      render json: @author, status: :created, location: @author
+      render :show, status: :ok
     else
       render json: @author.errors, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class AuthorsController < ApplicationController
   # PATCH/PUT /authors/1
   def update
     if @author.update(author_params)
-      render json: @author
+      render :show, status: :ok
     else
       render json: @author.errors, status: :unprocessable_entity
     end

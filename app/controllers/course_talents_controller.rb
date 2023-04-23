@@ -5,12 +5,12 @@ class CourseTalentsController < ApplicationController
   def index
     @course_talents = CourseTalent.all.page(params[:page]).per(params[:per_page])
 
-    render json: @course_talents
+    render :index, status: :ok
   end
 
   # GET /course_talents/1
   def show
-    render json: @course_talent
+    render :show, status: :ok
   end
 
   # POST /course_talents
@@ -18,7 +18,7 @@ class CourseTalentsController < ApplicationController
     @course_talent = CourseTalent.new(course_talent_params)
 
     if @course_talent.save
-      render json: @course_talent, status: :created, location: @course_talent
+      render :show, status: :ok
     else
       render json: @course_talent.errors, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class CourseTalentsController < ApplicationController
   # PATCH/PUT /course_talents/1
   def update
     if @course_talent.update(course_talent_params)
-      render json: @course_talent
+      render :show, status: :ok
     else
       render json: @course_talent.errors, status: :unprocessable_entity
     end

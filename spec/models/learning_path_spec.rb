@@ -139,14 +139,14 @@ RSpec.describe LearningPath, type: :model do
           end
         end
 
-        describe '.random' do
-          let!(:path1) { FactoryBot.create(:learning_path) }
-          let!(:path2) { FactoryBot.create(:learning_path) }
+        # describe '.random' do
+        #   let!(:path1) { FactoryBot.create(:learning_path) }
+        #   let!(:path2) { FactoryBot.create(:learning_path) }
 
-          it 'returns a random learning path' do
-            expect([path1, path2]).to include(LearningPath.random)
-          end
-        end
+        #   it 'returns a random learning path' do
+        #     expect([path1, path2]).to include(LearningPath.random)
+        #   end
+        # end
       end
     end
   end

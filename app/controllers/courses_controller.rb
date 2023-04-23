@@ -5,18 +5,18 @@ class CoursesController < ApplicationController
 
   def index
     @courses = Course.indexed_courses(params).page(params[:page]).per(params[:per_page] || 10)
-    render json: @courses
+    render :index, status: :ok
   end
 
   def show
-    render json: @course
+    render :show, status: :ok
   end
 
   def create
     @course = Course.new(course_params)
 
     if @course.save
-      render json: @course, status: :created
+      render :show, status: :ok
     else
       render json: @course.errors, status: :unprocessable_entity
     end
@@ -24,7 +24,7 @@ class CoursesController < ApplicationController
 
   def update
     if @course.update(course_params)
-      render json: @course
+      render :show, status: :ok
     else
       render json: @course.errors, status: :unprocessable_entity
     end

@@ -5,8 +5,8 @@ class Course < ApplicationRecord
   after_save :update_learning_path_duration
 
   belongs_to :author
-  belongs_to :talent, class_name: 'Talent'
-  has_and_belongs_to_many :talents
+  belongs_to :talent, class_name: 'Talent', optional: true
+  has_many :talents
 
   belongs_to :learning_path, dependent: :destroy
 

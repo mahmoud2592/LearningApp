@@ -11,7 +11,7 @@ RSpec.describe CourseTalentsController, type: :controller do
   describe "GET #index" do
     it "returns a success response" do
       course_talent = FactoryBot.create(:course_talent, valid_attributes)
-      get :index, params: {}, session: valid_session
+      get :index, params: {}, format: :json
       expect(response).to be_successful
     end
   end
@@ -19,7 +19,7 @@ RSpec.describe CourseTalentsController, type: :controller do
   describe "GET #show" do
     it "returns a success response" do
       course_talent = FactoryBot.create(:course_talent, valid_attributes)
-      get :show, params: { id: course_talent.to_param }
+      get :show, params: { id: course_talent.to_param }, format: :json
       expect(response).to be_successful
     end
   end
@@ -28,20 +28,19 @@ RSpec.describe CourseTalentsController, type: :controller do
     context "with valid params" do
       it "creates a new CourseTalent" do
         expect {
-          post :create, params: { course_talent: valid_attributes }
+          post :create, params: { course_talent: valid_attributes }, format: :json
         }.to change(CourseTalent, :count).by(1)
       end
 
       it "renders a JSON response with the new course_talent" do
-        post :create, params: { course_talent: valid_attributes }
-        expect(response).to have_http_status(:created)
-        expect(response.location).to eq(course_talent_url(CourseTalent.last))
+        post :create, params: { course_talent: valid_attributes }, format: :json
+        expect(response).to have_http_status(:ok)
       end
     end
 
     context "with invalid params" do
       it "renders a JSON response with errors for the new course_talent" do
-        post :create, params: { course_talent: invalid_attributes }
+        post :create, params: { course_talent: invalid_attributes }, format: :json
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
@@ -54,7 +53,7 @@ RSpec.describe CourseTalentsController, type: :controller do
 
       it "renders a JSON response with the updated course_talent" do
         course_talent = FactoryBot.create(:course_talent, valid_attributes)
-        patch :update, params: { id: course_talent.to_param, course_talent: valid_attributes }
+        patch :update, params: { id: course_talent.to_param, course_talent: valid_attributes }, format: :json
         expect(response).to have_http_status(:ok)
       end
     end
@@ -62,7 +61,7 @@ RSpec.describe CourseTalentsController, type: :controller do
     context "with invalid params" do
       it "renders a JSON response with errors for the course_talent" do
         course_talent = FactoryBot.create(:course_talent, valid_attributes)
-        patch :update, params: { id: course_talent.to_param, course_talent: invalid_attributes }
+        patch :update, params: { id: course_talent.to_param, course_talent: invalid_attributes }, format: :json
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
