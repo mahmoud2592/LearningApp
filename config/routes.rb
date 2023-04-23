@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
+  
+  # mount Rswag::Ui::Engine => '/api-docs'
+  # # mount Rswag::Api::Engine => '/api-docs'
+  # # mount Rswag::Ui::Engine => '/swagger'
+  # # get "/swagger/*path", to: redirect("/swagger?url=/config/swagger/v1/swagger.yaml")
   # mount Rswag::Api::Engine => '/api-docs'
   get '/404', to: 'errors#not_found'
   get '/500', to: 'errors#internal_server_error'

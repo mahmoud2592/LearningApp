@@ -1,0 +1,852 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/authors":
+    get:
+      summary: Retrieves a list of authors
+      tags:
+      - Authors
+      parameters:
+      - name: page
+        in: query
+        description: Page number
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: Number of items per page
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: authors found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/definitions/author"
+        '404':
+          description: authors not found
+    post:
+      summary: Creates an author
+      tags:
+      - Authors
+      parameters: []
+      responses:
+        '201':
+          description: author created
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                website_url:
+                  type: string
+              required:
+              - name
+              - email
+  "/authors/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Retrieves an author
+      tags:
+      - Authors
+      responses:
+        '200':
+          description: author found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/definitions/author"
+        '404':
+          description: author not found
+    put:
+      summary: Updates an author
+      tags:
+      - Authors
+      parameters: []
+      responses:
+        '200':
+          description: author updated
+        '422':
+          description: invalid request
+        '404':
+          description: author not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                website_url:
+                  type: string
+    delete:
+      summary: Delete an Author
+      tags:
+      - Authors
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Author deleted
+        '404':
+          description: Author not found
+  "/courses":
+    get:
+      summary: Retrieves a list of courses
+      tags:
+      - Courses
+      parameters:
+      - name: difficulty
+        in: query
+        description: Filter by difficulty
+        schema:
+          type: string
+      - name: published
+        in: query
+        description: Filter by published status
+        schema:
+          type: boolean
+      - name: q
+        in: query
+        description: Search term
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: Sort by views count
+        schema:
+          type: string
+      responses:
+        '200':
+          description: courses found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    video_url:
+                      type: string
+                    duration:
+                      type: integer
+                    difficulty:
+                      type: string
+                    price:
+                      type: number
+                    published:
+                      type: boolean
+                    learning_path_id:
+                      type: integer
+                    author_id:
+                      type: integer
+                    created_at:
+                      type: string
+                    updated_at:
+                      type: string
+                  required:
+                  - id
+                  - name
+                  - description
+                  - video_url
+                  - duration
+                  - difficulty
+                  - price
+                  - published
+                  - learning_path_id
+                  - author_id
+                  - created_at
+                  - updated_at
+        '422':
+          description: invalid request
+    post:
+      summary: Creates a course
+      tags:
+      - Courses
+      parameters: []
+      responses:
+        '201':
+          description: course created
+        '422':
+          description: invalid request
+        '401':
+          description: unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                video_url:
+                  type: string
+                duration:
+                  type: integer
+                difficulty:
+                  type: string
+                price:
+                  type: number
+                published:
+                  type: boolean
+                learning_path_id:
+                  type: integer
+                author_id:
+                  type: integer
+              required:
+              - name
+              - description
+              - video_url
+              - duration
+              - difficulty
+              - price
+              - published
+              - learning_path_id
+              - author_id
+  "/courses/{id}":
+    get:
+      summary: Retrieves a course
+      tags:
+      - Courses
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: course found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/course"
+        '404':
+          description: course not found
+        '401':
+          description: unauthorized
+    put:
+      summary: Updates a course
+      tags:
+      - Courses
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: course updated
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                course:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+    delete:
+      summary: Deletes a course
+      tags:
+      - Courses
+      parameters:
+      - name: id
+        in: path
+        description: ID of the course
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+  "/course_talents":
+    get:
+      summary: Retrieves all course talents
+      tags:
+      - CourseTalents
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: returns all course talents
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                    course_id:
+                      type: integer
+                    talent_id:
+                      type: integer
+                    created_at:
+                      type: string
+                      format: date-time
+                    updated_at:
+                      type: string
+                      format: date-time
+    post:
+      summary: Creates a course talent
+      tags:
+      - CourseTalents
+      parameters: []
+      responses:
+        '201':
+          description: course talent created
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                course_id:
+                  type: integer
+                talent_id:
+                  type: integer
+              required:
+              - course_id
+              - talent_id
+  "/course_talents/{id}":
+    put:
+      summary: Updates a course talent
+      tags:
+      - CourseTalents
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: course talent updated
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                course_id:
+                  type: integer
+                talent_id:
+                  type: integer
+              required:
+              - course_id
+              - talent_id
+    delete:
+      summary: Deletes a course talent
+      tags:
+      - CourseTalents
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: course talent deleted
+        '404':
+          description: course talent not found
+  "/enrollments/{id}":
+    get:
+      summary: Retrieves an enrollment
+      tags:
+      - Enrollments
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: enrollment found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  talent:
+                    "$ref": "#/components/schemas/talent"
+                  learning_path:
+                    "$ref": "#/components/schemas/learning_path"
+                  enrollment_date:
+                    type: string
+                required:
+                - id
+                - talent
+                - learning_path
+                - enrollment_date
+        '404':
+          description: enrollment not found
+    delete:
+      summary: Deletes an enrollment
+      tags:
+      - Enrollments
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: enrollment deleted
+        '404':
+          description: enrollment not found
+    patch:
+      summary: Updates an enrollment
+      tags:
+      - Enrollments
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: enrollment updated
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                talent_id:
+                  type: integer
+                learning_path_id:
+                  type: integer
+                enrollment_date:
+                  type: string
+  "/enrollments":
+    post:
+      summary: Creates an enrollment
+      tags:
+      - Enrollments
+      parameters: []
+      responses:
+        '201':
+          description: enrollment created
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                talent_id:
+                  type: integer
+                learning_path_id:
+                  type: integer
+                enrollment_date:
+                  type: string
+              required:
+              - talent_id
+              - learning_path_id
+              - enrollment_date
+  "/learning_paths":
+    get:
+      summary: Returns a list of learning paths
+      tags:
+      - Learning Paths
+      parameters:
+      - name: difficulty_level
+        in: query
+        description: Filter by difficulty level
+        schema:
+          type: string
+      - name: published
+        in: query
+        description: Filter by published
+        schema:
+          type: boolean
+      - name: q
+        in: query
+        description: Filter by search query
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: Sort by views count
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: Page number
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: Number of items per page
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: returns a list of learning paths
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    duration_in_weeks:
+                      type: integer
+                    difficulty_level:
+                      type: string
+                    published:
+                      type: boolean
+                    views_count:
+                      type: integer
+                  required:
+                  - id
+                  - name
+                  - description
+                  - duration_in_weeks
+                  - difficulty_level
+                  - published
+                  - views_count
+        '422':
+          description: invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                required:
+                - error
+    post:
+      summary: Creates a learning path
+      tags:
+      - Learning Paths
+      parameters: []
+      responses:
+        '201':
+          description: learning path created
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                duration_in_weeks:
+                  type: integer
+                difficulty_level:
+                  type: string
+                published:
+                  type: boolean
+                views_count:
+                  type: integer
+              required:
+              - name
+              - description
+              - duration_in_weeks
+              - difficulty_level
+              - published
+  "/learning_paths/{id}":
+    get:
+      summary: Retrieves a learning path
+      tags:
+      - Learning Paths
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: learning path found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/LearningPath"
+        '404':
+          description: learning path not found
+    delete:
+      summary: Deletes a learning path
+      tags:
+      - Learning Paths
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: learning path deleted
+        '404':
+          description: learning path not found
+    put:
+      summary: Updates a learning path
+      tags:
+      - Learning Paths
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: learning path updated
+        '422':
+          description: invalid request
+        '404':
+          description: learning path not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                duration_in_weeks:
+                  type: integer
+                difficulty_level:
+                  type: string
+                published:
+                  type: boolean
+                views_count:
+                  type: integer
+  "/talents":
+    get:
+      summary: Retrieves all talents
+      tags:
+      - Talents
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: talents found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    category:
+                      type: string
+                    level:
+                      type: string
+                    website_url:
+                      type: string
+                  required:
+                  - id
+                  - name
+                  - description
+                  - category
+                  - level
+        '404':
+          description: talents not found
+    post:
+      summary: Creates a talent
+      tags:
+      - Talents
+      parameters: []
+      responses:
+        '201':
+          description: talent created
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                category:
+                  type: string
+                level:
+                  type: string
+                website_url:
+                  type: string
+              required:
+              - name
+              - description
+              - category
+              - level
+  "/talents/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Retrieves a talent
+      tags:
+      - Talents
+      responses:
+        '200':
+          description: talent found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  category:
+                    type: string
+                  level:
+                    type: string
+                  website_url:
+                    type: string
+                required:
+                - id
+                - name
+                - description
+                - category
+                - level
+        '404':
+          description: talent not found
+    patch:
+      summary: Updates a talent
+      tags:
+      - Talents
+      parameters: []
+      responses:
+        '200':
+          description: talent updated
+        '422':
+          description: invalid request
+        '404':
+          description: talent not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                category:
+                  type: string
+                level:
+                  type: string
+                website_url:
+                  type: string
+              required:
+              - name
+              - description
+              - category
+              - level
+              - website_url
+    delete:
+      summary: Deletes a talent
+      tags:
+      - Talents
+      responses:
+        '204':
+          description: talent deleted
+        '404':
+          description: talent not found
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
