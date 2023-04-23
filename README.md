@@ -1,24 +1,13 @@
-# README
+Requirments:
+ Install Docker & Docker-compose
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+In the project directory, Run:
+ docker-compose build
+ docker-compose up
 
-Things you may want to cover:
+ Access docker's application container using it's id by Run:
+    docker ps
+After getting it's id to access it, Run :   
+    sudo docker exec -it YOUR_CONTAINER_ID /bin/sh
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+    Note: replace YOUR_CONTAINER_ID with your container application id
