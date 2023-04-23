@@ -26,8 +26,9 @@ class ApplicationController < ActionController::Base
   private
 
   def render_error_page(status:, message:)
-    render file: "#{Rails.root}/public/#{status}.html", layout: false, status: status, locals: { message: message }
+    render json: { error: message }, status: status
   end
+  
 
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale

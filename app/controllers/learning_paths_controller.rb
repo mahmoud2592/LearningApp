@@ -58,7 +58,8 @@ class LearningPathsController < ApplicationController
   private
 
   def set_learning_path
-    @learning_path = LearningPath.find(params[:id])
+    @learning_path = LearningPath.find_by(id: params[:id])
+    raise HttpErrors::NotFoundError.new if @learning_path.nil?
   end
 
   def learning_path_params
