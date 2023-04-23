@@ -2,11 +2,11 @@ Requirments:
 
  Install Docker & Docker-compose
 
-In the project directory, Run:
-
-  docker-compose build
+ In the project directory, Run:
+ 
+   docker-compose build
   
-  docker-compose up
+   docker-compose up
 
  Access docker's application container using it's id by Run:
  
@@ -19,5 +19,5 @@ After getting it's id to access it, Run :
     Note: replace YOUR_CONTAINER_ID with your container application id
 
 
-After setting up the project, For APIs Doc, Follow this link:
+For APIs Doc using Rswag Swagger, once you set up the project, Follow this link:
 http://localhost:3000/api-docs/index.html
