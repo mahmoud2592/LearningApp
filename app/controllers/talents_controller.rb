@@ -41,7 +41,8 @@ class TalentsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_talent
-    @talent = Talent.find(params[:id])
+    @talent = Talent.find_by(id: params[:id])
+    raise HttpErrors::NotFoundError.new if @talent.nil?
   end
 
   # Only allow a list of trusted parameters through.

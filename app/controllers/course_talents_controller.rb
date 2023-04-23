@@ -41,7 +41,8 @@ class CourseTalentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_course_talent
-      @course_talent = CourseTalent.find(params[:id])
+      @course_talent = CourseTalent.find_by(id: params[:id])
+      raise HttpErrors::NotFoundError.new if @course_talent.nil?
     end
 
     # Only allow a list of trusted parameters through.

@@ -37,7 +37,8 @@ class EnrollmentsController < ApplicationController
   private
 
   def set_enrollment
-    @enrollment = Enrollment.find(params[:id])
+    @enrollment = Enrollment.find_by(id: params[:id])
+    raise HttpErrors::NotFoundError.new if @enrollment.nil?
   end
 
   def enrollment_params

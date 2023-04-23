@@ -38,7 +38,8 @@ class CoursesController < ApplicationController
   private
 
   def set_course
-    @course = Course.find(params[:id])
+    @course = Course.find_by(id: params[:id])
+    raise HttpErrors::NotFoundError.new if @course.nil?
   end
 
   def course_params
