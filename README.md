@@ -4,8 +4,8 @@ Requirments:
 
 In the project directory, Run:
 
- docker-compose build
- docker-compose up
+  docker-compose build
+  docker-compose up
 
  Access docker's application container using it's id by Run:
  
