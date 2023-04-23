@@ -26,18 +26,18 @@ class LearningPathsController < ApplicationController
 
     @learning_paths = @learning_paths.page(params[:page]).per(params[:per_page])
 
-    render json: @learning_paths
+    render :index, status: :ok
   end
 
   def show
-    render json: @learning_path
+    render :show, status: :ok
   end
 
   def create
     @learning_path = LearningPath.new(learning_path_params)
 
     if @learning_path.save
-      render json: @learning_path, status: :created
+      render :create, status: :created
     else
       render json: @learning_path.errors, status: :unprocessable_entity
     end

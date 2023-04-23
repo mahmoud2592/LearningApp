@@ -25,12 +25,12 @@ class LearningPathCourse < ApplicationRecord
   after_destroy :update_learning_path_courses_count
 
   def rating
-    learning_path_courses.with_rating.average(:rating)
+    learning_path.learning_path_courses.with_rating.average(:rating)
   end
 
   def completion_rate
-    total = learning_path_courses.count
-    completed = learning_path_courses.completed.count
+    total = learning_path.learning_path_courses.count
+    completed = learning_path.learning_path_courses.completed.count
     total > 0 ? (completed.to_f / total) * 100 : 0
   end
 

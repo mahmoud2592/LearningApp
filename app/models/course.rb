@@ -5,6 +5,9 @@ class Course < ApplicationRecord
   after_save :update_learning_path_duration
 
   belongs_to :author
+  belongs_to :talent, class_name: 'Talent'
+  has_and_belongs_to_many :talents
+
   belongs_to :learning_path, dependent: :destroy
 
   has_many :learning_path_courses, dependent: :destroy
@@ -47,13 +50,19 @@ class Course < ApplicationRecord
     courses
   end
 
+  def author_talent
+    talent || author&.talent
+  end
+
   private
 
   def update_learning_path_duration
-    return unless learning_path.present?
-
-    total_duration_in_hours = learning_path.courses.sum(:duration)
-    total_duration_in_weeks = total_duration_in_hours / 60.0 / 7.0
-    learning_path.update(duration_in_weeks: total_duration_in_weeks.ceil.nonzero? || 1)
+    if learning_paths.any?
+      learning_paths.each do |learning_path|
+        total_duration_in_hours = learning_path.courses.sum(:duration)
+        total_duration_in_weeks = total_duration_in_hours / 60.0 / 7.0
+        learning_path.update(duration_in_weeks: total_duration_in_weeks.ceil.nonzero? || 1)
+      end
+    end
   end
 end

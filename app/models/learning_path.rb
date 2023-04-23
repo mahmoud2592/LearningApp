@@ -38,11 +38,11 @@ class LearningPath < ApplicationRecord
   end
 
   def total_views_count
-    self.courses.sum(:views_count)
+    self.views_count
   end
 
   def average_rating
-    self.courses.average(:rating)
+    self.learning_path_courses.average(:rating)
   end
 
   def self.search(query)

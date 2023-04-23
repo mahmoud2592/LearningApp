@@ -9,6 +9,7 @@ FactoryBot.define do
     price { Faker::Commerce.price }
     published { Faker::Boolean.boolean }
     association :learning_path
-    association :author
+    association :author, factory: :author
+    association :talent, factory: :talent
   end
 end
