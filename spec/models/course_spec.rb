@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Course, type: :model do
   describe "validations" do
-    subject { build(:course) }
+    subject { FactoryBot.build(:course) }
 
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:duration) }

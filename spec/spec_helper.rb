@@ -14,6 +14,7 @@
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'http_errors'
+require "rails/all"
 
 
 RSpec.configure do |config|
