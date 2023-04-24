@@ -7,7 +7,13 @@ RSpec.describe TalentsController, type: :request do
       produces 'application/json'
       parameter name: :page, in: :query, type: :integer
       parameter name: :per_page, in: :query, type: :integer
-
+      parameter name: :level,
+      getter: :level,
+      in: :query,
+      schema: {
+        type: :string,
+        enum: %w[beginner intermediate advanced expert],
+      }, required: false
       response '200', 'talents found' do
         schema type: :array,
           items: {
@@ -17,7 +23,7 @@ RSpec.describe TalentsController, type: :request do
               name: { type: :string },
               description: { type: :string },
               category: { type: :string },
-              level: { type: :string },
+              level: { type: :string, enum: %w[beginner intermediate advanced expert] },
               website_url: { type: :string }
             },
             required: [ 'id', 'name', 'description', 'category', 'level' ]
@@ -43,11 +49,18 @@ RSpec.describe TalentsController, type: :request do
           name: { type: :string },
           description: { type: :string },
           category: { type: :string },
-          level: { type: :string },
+          level: { type: :string, enum: %w[beginner intermediate advanced expert], required: true },
           website_url: { type: :string }
         },
         required: [ 'name', 'description', 'category', 'level' ]
       }
+      parameter name: :level,
+      getter: :level,
+      in: :query,
+      schema: {
+        type: :string,
+        enum: %w[beginner intermediate advanced expert],
+      }, required: true
 
       response '201', 'talent created' do
         let(:talent) { { name: 'New Talent', description: 'Talent description', category: 'Web Development', level: 'Intermediate' } }
@@ -74,7 +87,7 @@ RSpec.describe TalentsController, type: :request do
             name: { type: :string },
             description: { type: :string },
             category: { type: :string },
-            level: { type: :string },
+            level: { type: :string, enum: %w[beginner intermediate advanced expert] },
             website_url: { type: :string }
           },
           required: [ 'id', 'name', 'description', 'category', 'level' ]
@@ -98,40 +111,39 @@ RSpec.describe TalentsController, type: :request do
               name: { type: :string },
               description: { type: :string },
               category: { type: :string },
-              level: { type: :string },
-              website_url: { type: :string }
-            },
-            required: ['name', 'description', 'category', 'level', 'website_url']
-          }
-  
+              level: { type: :string, enum: %w[beginner intermediate advanced expert] },
+              website_url: { type: :string },
+              }
+            }
+
         response '200', 'talent updated' do
           let(:talent) { { name: 'Updated Talent Name' } }
           let(:id) { Talent.create(name: 'Test Talent', description: 'This is a test talent', category: 'Test', level: 'Intermediate', website_url: 'http://test.com').id }
           run_test!
         end
-  
+
         response '422', 'invalid request' do
           let(:talent) { { name: nil } }
           let(:id) { Talent.create(name: 'Test Talent', description: 'This is a test talent', category: 'Test', level: 'Intermediate', website_url: 'http://test.com').id }
           run_test!
         end
-  
+
         response '404', 'talent not found' do
           let(:talent) { { name: 'Updated Talent Name' } }
           let(:id) { 'invalid' }
           run_test!
         end
       end
-  
+
       delete 'Deletes a talent' do
         tags 'Talents'
         produces 'application/json'
-  
+
         response '204', 'talent deleted' do
           let(:id) { Talent.create(name: 'Test Talent', description: 'This is a test talent', category: 'Test', level: 'Intermediate', website_url: 'http://test.com').id }
           run_test!
         end
-  
+
         response '404', 'talent not found' do
           let(:id) { 'invalid' }
           run_test!

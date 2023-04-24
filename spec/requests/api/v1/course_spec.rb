@@ -8,7 +8,7 @@ RSpec.describe CoursesController, type: :request do
         parameter name: :published, in: :query, type: :boolean, description: 'Filter by published status'
         parameter name: :q, in: :query, type: :string, description: 'Search term'
         parameter name: :sort, in: :query, type: :string, description: 'Sort by views count'
-  
+
         response '200', 'courses found' do
           schema type: :array,
             items: {
@@ -19,7 +19,7 @@ RSpec.describe CoursesController, type: :request do
                 description: { type: :string },
                 video_url: { type: :string },
                 duration: { type: :integer },
-                difficulty: { type: :string },
+                difficulty: { type: :string, enum: %w[beginner intermediate advanced expert], required: true },
                 price: { type: :number },
                 published: { type: :boolean },
                 learning_path_id: { type: :integer },
@@ -29,14 +29,14 @@ RSpec.describe CoursesController, type: :request do
               },
               required: [ 'id', 'name', 'description', 'video_url', 'duration', 'difficulty', 'price', 'published', 'learning_path_id', 'author_id', 'created_at', 'updated_at' ]
             }
-  
+
           let(:course1) { create(:course) }
           let(:course2) { create(:course) }
           let(:difficulty) { course1.difficulty }
           let(:published) { course2.published }
           let(:q) { 'ruby' }
           let(:sort) { 'views' }
-  
+
           run_test! do |response|
             data = JSON.parse(response.body)
             expect(data.length).to eq(2)
@@ -44,10 +44,10 @@ RSpec.describe CoursesController, type: :request do
             expect(data[1]['id']).to eq(course2.id)
           end
         end
-  
+
         response '422', 'invalid request' do
           let(:difficulty) { 'invalid' }
-  
+
           run_test! do |response|
             data = JSON.parse(response.body)
             expect(data['error']).to eq('Invalid difficulty level')
@@ -93,7 +93,7 @@ RSpec.describe CoursesController, type: :request do
             description: { type: :string },
             video_url: { type: :string },
             duration: { type: :integer },
-            difficulty: { type: :string },
+            difficulty: { type: :string, enum: %w[beginner intermediate advanced expert], required: true },
             price: { type: :number },
             published: { type: :boolean },
             learning_path_id: { type: :integer },

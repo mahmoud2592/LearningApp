@@ -163,6 +163,12 @@ paths:
                       type: integer
                     difficulty:
                       type: string
+                      enum:
+                      - beginner
+                      - intermediate
+                      - advanced
+                      - expert
+                      required: true
                     price:
                       type: number
                     published:
@@ -218,6 +224,12 @@ paths:
                   type: integer
                 difficulty:
                   type: string
+                  enum:
+                  - beginner
+                  - intermediate
+                  - advanced
+                  - expert
+                  required: true
                 price:
                   type: number
                 published:
@@ -329,6 +341,8 @@ paths:
                       type: integer
                     talent_id:
                       type: integer
+                    completed:
+                      type: boolean
                     created_at:
                       type: string
                       format: date-time
@@ -355,10 +369,31 @@ paths:
                   type: integer
                 talent_id:
                   type: integer
+                completed:
+                  type: boolean
               required:
               - course_id
               - talent_id
   "/course_talents/{id}":
+    get:
+      summary: Retrieves a course talent
+      tags:
+      - CourseTalents
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: learning path found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/LearningPath"
+        '404':
+          description: learning path not found
     put:
       summary: Updates a course talent
       tags:
@@ -384,6 +419,8 @@ paths:
                   type: integer
                 talent_id:
                   type: integer
+                completed:
+                  type: boolean
               required:
               - course_id
               - talent_id
@@ -402,6 +439,83 @@ paths:
           description: course talent deleted
         '404':
           description: course talent not found
+  "/enrollments":
+    post:
+      summary: Creates an enrollment
+      tags:
+      - Enrollments
+      parameters: []
+      responses:
+        '201':
+          description: enrollment created
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                talent_id:
+                  type: integer
+                learning_path_id:
+                  type: integer
+                enrollment_date:
+                  type: string
+                completed:
+                  type: boolean
+                completed_at:
+                  type: date
+              required:
+              - talent_id
+              - learning_path_id
+              - enrollment_date
+    get:
+      summary: Retrieves enrollments
+      tags:
+      - Enrollments
+      parameters:
+      - name: talent_id
+        in: query
+        schema:
+          type: integer
+      - name: learning_path_id
+        in: query
+        schema:
+          type: integer
+      - name: date
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: enrollments found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    talent_id:
+                      type: integer
+                    learning_path_id:
+                      type: integer
+                    enrollment_date:
+                      type: string
+                    completed:
+                      type: boolean
+                    completed_at:
+                      type: date
+                  required:
+                  - id
+                  - talent_id
+                  - learning_path_id
+                  - enrollment_date
+        '404':
+          description: enrollments not found
   "/enrollments/{id}":
     get:
       summary: Retrieves an enrollment
@@ -429,6 +543,10 @@ paths:
                     "$ref": "#/components/schemas/learning_path"
                   enrollment_date:
                     type: string
+                  completed:
+                    type: boolean
+                  completed_at:
+                    type: date
                 required:
                 - id
                 - talent
@@ -478,33 +596,10 @@ paths:
                   type: integer
                 enrollment_date:
                   type: string
-  "/enrollments":
-    post:
-      summary: Creates an enrollment
-      tags:
-      - Enrollments
-      parameters: []
-      responses:
-        '201':
-          description: enrollment created
-        '422':
-          description: invalid request
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                talent_id:
-                  type: integer
-                learning_path_id:
-                  type: integer
-                enrollment_date:
-                  type: string
-              required:
-              - talent_id
-              - learning_path_id
-              - enrollment_date
+                completed:
+                  type: boolean
+                completed_at:
+                  type: date
   "/learning_paths":
     get:
       summary: Returns a list of learning paths
@@ -561,6 +656,11 @@ paths:
                       type: integer
                     difficulty_level:
                       type: string
+                      enum:
+                      - beginner
+                      - intermediate
+                      - advanced
+                      - expert
                     published:
                       type: boolean
                     views_count:
@@ -608,6 +708,12 @@ paths:
                   type: integer
                 difficulty_level:
                   type: string
+                  enum:
+                  - beginner
+                  - intermediate
+                  - advanced
+                  - expert
+                  required: true
                 published:
                   type: boolean
                 views_count:
@@ -684,6 +790,12 @@ paths:
                   type: integer
                 difficulty_level:
                   type: string
+                  enum:
+                  - beginner
+                  - intermediate
+                  - advanced
+                  - expert
+                  required: true
                 published:
                   type: boolean
                 views_count:
@@ -702,6 +814,17 @@ paths:
         in: query
         schema:
           type: integer
+      - name: level
+        getter: level
+        in: query
+        schema:
+          type: string
+          enum:
+          - beginner
+          - intermediate
+          - advanced
+          - expert
+        required: false
       responses:
         '200':
           description: talents found
@@ -722,6 +845,11 @@ paths:
                       type: string
                     level:
                       type: string
+                      enum:
+                      - beginner
+                      - intermediate
+                      - advanced
+                      - expert
                     website_url:
                       type: string
                   required:
@@ -736,7 +864,18 @@ paths:
       summary: Creates a talent
       tags:
       - Talents
-      parameters: []
+      parameters:
+      - name: level
+        getter: level
+        in: query
+        schema:
+          type: string
+          enum:
+          - beginner
+          - intermediate
+          - advanced
+          - expert
+        required: true
       responses:
         '201':
           description: talent created
@@ -756,6 +895,12 @@ paths:
                   type: string
                 level:
                   type: string
+                  enum:
+                  - beginner
+                  - intermediate
+                  - advanced
+                  - expert
+                  required: true
                 website_url:
                   type: string
               required:
@@ -792,6 +937,11 @@ paths:
                     type: string
                   level:
                     type: string
+                    enum:
+                    - beginner
+                    - intermediate
+                    - advanced
+                    - expert
                   website_url:
                     type: string
                 required:
@@ -828,14 +978,13 @@ paths:
                   type: string
                 level:
                   type: string
+                  enum:
+                  - beginner
+                  - intermediate
+                  - advanced
+                  - expert
                 website_url:
                   type: string
-              required:
-              - name
-              - description
-              - category
-              - level
-              - website_url
     delete:
       summary: Deletes a talent
       tags:
