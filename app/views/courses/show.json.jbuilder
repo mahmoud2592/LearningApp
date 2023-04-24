@@ -1,4 +1,5 @@
 json.extract! @course, :id, :name, :description, :slug, :video_url, :duration, :difficulty, :price, :published, :created_at, :updated_at
+json.multimedia_file         url_for(@course.multimedia_file) if @course.multimedia_file.present?
 if @course.author_talent.is_a?(Author)
   json.author_type :author
   json.author_talent @course.author_talent, :id, :name, :email, :website_url, :type

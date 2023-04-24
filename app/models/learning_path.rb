@@ -1,5 +1,8 @@
 class LearningPath < ApplicationRecord
   DIFFICULTIES_OPTIONS = %w(beginner intermediate advanced expert)
+  has_one_attached :multimedia_file
+
+
 
   has_many :enrollments, dependent: :destroy
   has_many :talents, through: :enrollments
