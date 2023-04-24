@@ -63,6 +63,6 @@ class LearningPathsController < ApplicationController
   end
 
   def learning_path_params
-    params.require(:learning_path).permit(:name, :description, :duration_in_weeks, :difficulty_level, :published, :views_count)
+    params.require(:learning_path).permit(:name, :description, :duration_in_weeks, :difficulty_level, :published, :views_count, :multimedia_file)
   end
 end

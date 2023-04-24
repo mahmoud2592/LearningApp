@@ -43,6 +43,6 @@ class CoursesController < ApplicationController
   end
 
   def course_params
-    params.require(:course).permit(:name, :description, :video_url, :duration, :difficulty, :price, :published, :learning_path_id, :author_id)
+    params.require(:course).permit(:name, :description, :video_url, :duration, :difficulty, :price, :published, :learning_path_id, :author_id, :multimedia_file)
   end
 end
