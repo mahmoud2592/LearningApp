@@ -3,7 +3,7 @@ class LearningPath < ApplicationRecord
 
   has_many :enrollments, dependent: :destroy
   has_many :talents, through: :enrollments
-  has_many :learning_path_courses, dependent: :destroy
+  has_many :learning_path_courses, -> { order(:sequence) }, dependent: :destroy
   has_many :courses, through: :learning_path_courses
 
   validates :name, presence: true

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_23_200003) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_24_001857) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -55,6 +55,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_23_200003) do
     t.integer "talent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "completed", default: false
     t.index ["course_id"], name: "index_course_talents_on_course_id"
     t.index ["talent_id"], name: "index_course_talents_on_talent_id"
   end
@@ -82,6 +83,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_23_200003) do
     t.date "enrollment_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "learning_path_course_id", null: false
+    t.boolean "completed", default: false, null: false
+    t.date "completed_at"
+    t.index ["learning_path_course_id"], name: "index_enrollments_on_learning_path_course_id"
     t.index ["learning_path_id"], name: "index_enrollments_on_learning_path_id"
     t.index ["talent_id", "learning_path_id"], name: "index_enrollments_on_talent_id_and_learning_path_id", unique: true
     t.index ["talent_id"], name: "index_enrollments_on_talent_id"
@@ -128,6 +133,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_23_200003) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "courses", "talents"
+  add_foreign_key "enrollments", "learning_path_courses"
   add_foreign_key "enrollments", "learning_paths"
   add_foreign_key "enrollments", "talents"
 end

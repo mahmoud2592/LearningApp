@@ -9,11 +9,11 @@ FactoryBot.define do
 
     factory :learning_path_with_courses do
       transient do
-        courses_count { 3 }
+        courses_count { 5 }
       end
 
       after(:create) do |learning_path, evaluator|
-        create_list(:course, evaluator.courses_count, learning_path: learning_path)
+        create_list(:learning_path_course, evaluator.courses_count, learning_path: learning_path)
       end
     end
   end
