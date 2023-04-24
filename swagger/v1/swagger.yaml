@@ -181,11 +181,13 @@ paths:
                       type: string
                     updated_at:
                       type: string
+                    multimedia_file:
+                      type: string
+                      format: binary
                   required:
                   - id
                   - name
                   - description
-                  - video_url
                   - duration
                   - difficulty
                   - price
@@ -194,6 +196,7 @@ paths:
                   - author_id
                   - created_at
                   - updated_at
+                  - multimedia_file
         '422':
           description: invalid request
     post:
@@ -238,16 +241,19 @@ paths:
                   type: integer
                 author_id:
                   type: integer
+                multimedia_file:
+                  type: string
+                  format: binary
               required:
               - name
               - description
-              - video_url
               - duration
               - difficulty
               - price
               - published
               - learning_path_id
               - author_id
+              - multimedia_file
   "/courses/{id}":
     get:
       summary: Retrieves a course
@@ -653,6 +659,9 @@ paths:
                       type: boolean
                     views_count:
                       type: integer
+                    multimedia_file:
+                      type: string
+                      format: binary
                   required:
                   - id
                   - name
@@ -661,6 +670,7 @@ paths:
                   - difficulty_level
                   - published
                   - views_count
+                  - multimedia_file
         '422':
           description: invalid request
           content:
@@ -704,12 +714,16 @@ paths:
                   required: true
                 published:
                   type: boolean
+                multimedia_file:
+                  type: string
+                  format: binary
               required:
               - name
               - description
               - duration_in_weeks
               - difficulty_level
               - published
+              - multimedia_file
   "/learning_paths/{id}":
     get:
       summary: Retrieves a learning path
@@ -784,6 +798,9 @@ paths:
                   required: true
                 published:
                   type: boolean
+                multimedia_file:
+                  type: string
+                  format: binary
   "/talents":
     get:
       summary: Retrieves all talents

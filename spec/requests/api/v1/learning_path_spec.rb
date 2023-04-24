@@ -23,9 +23,10 @@ RSpec.describe LearningPathsController, type: :request do
                   duration_in_weeks: { type: :integer },
                   difficulty_level: { type: :string, enum: %w[beginner intermediate advanced expert] },
                   published: { type: :boolean },
-                  views_count: { type: :integer }
+                  views_count: { type: :integer },
+                  multimedia_file: { type: :string, format: :binary }
                 },
-                required: ['id', 'name', 'description', 'duration_in_weeks', 'difficulty_level', 'published', 'views_count']
+                required: ['id', 'name', 'description', 'duration_in_weeks', 'difficulty_level', 'published', 'views_count', 'multimedia_file']
               }
             run_test!
           end
@@ -93,8 +94,9 @@ RSpec.describe LearningPathsController, type: :request do
                 duration_in_weeks: { type: :integer },
                 difficulty_level: { type: :string, enum: %w[beginner intermediate advanced expert], required: true },
                 published: { type: :boolean },
+                multimedia_file: { type: :string, format: :binary }
               },
-              required: [ 'name', 'description', 'duration_in_weeks', 'difficulty_level', 'published' ]
+              required: [ 'name', 'description', 'duration_in_weeks', 'difficulty_level', 'published', 'multimedia_file' ]
             }
 
             response '201', 'learning path created' do
@@ -122,6 +124,7 @@ RSpec.describe LearningPathsController, type: :request do
                 duration_in_weeks: { type: :integer },
                 difficulty_level: { type: :string, enum: %w[beginner intermediate advanced expert], required: true },
                 published: { type: :boolean },
+                multimedia_file: { type: :string, format: :binary }
               }
             }
 

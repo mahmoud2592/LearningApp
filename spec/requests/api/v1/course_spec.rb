@@ -25,9 +25,10 @@ RSpec.describe CoursesController, type: :request do
                 learning_path_id: { type: :integer },
                 author_id: { type: :integer },
                 created_at: { type: :string },
-                updated_at: { type: :string }
+                updated_at: { type: :string },
+                multimedia_file: { type: :string, format: :binary }
               },
-              required: [ 'id', 'name', 'description', 'video_url', 'duration', 'difficulty', 'price', 'published', 'learning_path_id', 'author_id', 'created_at', 'updated_at' ]
+              required: [ 'id', 'name', 'description', 'duration', 'difficulty', 'price', 'published', 'learning_path_id', 'author_id', 'created_at', 'updated_at', 'multimedia_file' ]
             }
 
           let(:course1) { create(:course) }
@@ -97,9 +98,11 @@ RSpec.describe CoursesController, type: :request do
             price: { type: :number },
             published: { type: :boolean },
             learning_path_id: { type: :integer },
-            author_id: { type: :integer }
+            author_id: { type: :integer },
+            multimedia_file: { type: :string, format: :binary },
+
           },
-          required: ['name', 'description', 'video_url', 'duration', 'difficulty', 'price', 'published', 'learning_path_id', 'author_id']
+          required: ['name', 'description', 'duration', 'difficulty', 'price', 'published', 'learning_path_id', 'author_id', 'multimedia_file']
         }
 
         response '201', 'course created' do
