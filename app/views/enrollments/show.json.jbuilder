@@ -1,4 +1,5 @@
 json.(@enrollment, :id, :enrollment_date, :completed, :completed_at)
+json.current_course @enrollment.current_course unless @enrollment.completed
 json.talent @enrollment.talent, :id, :name, :description, :category, :level, :website_url
 json.learning_path do
   json.id @enrollment.learning_path.id

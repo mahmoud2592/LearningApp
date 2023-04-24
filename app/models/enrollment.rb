@@ -31,6 +31,10 @@ class Enrollment < ApplicationRecord
       end
     end
 
+    def current_course
+      learning_path_course || learning_path.learning_path_courses.find_by(sequence: sequence)
+    end
+
   private
 
   def set_talent_courses
