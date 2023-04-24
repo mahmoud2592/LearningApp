@@ -201,9 +201,6 @@ RSpec.describe EnrollmentsController, type: :request do
               properties: {
                 talent_id: { type: :integer },
                 learning_path_id: { type: :integer },
-                enrollment_date: { type: :string },
-                completed: {type: :boolean},
-                completed_at: {type: :date}
               },
               required: [ 'talent_id', 'learning_path_id', 'enrollment_date' ]
             }
@@ -231,9 +228,6 @@ RSpec.describe EnrollmentsController, type: :request do
               properties: {
                 talent_id: { type: :integer },
                 learning_path_id: { type: :integer },
-                enrollment_date: { type: :string },
-                completed: {type: :boolean},
-                completed_at: {type: :date}
               }
             }
 

@@ -460,12 +460,6 @@ paths:
                   type: integer
                 learning_path_id:
                   type: integer
-                enrollment_date:
-                  type: string
-                completed:
-                  type: boolean
-                completed_at:
-                  type: date
               required:
               - talent_id
               - learning_path_id
@@ -594,12 +588,6 @@ paths:
                   type: integer
                 learning_path_id:
                   type: integer
-                enrollment_date:
-                  type: string
-                completed:
-                  type: boolean
-                completed_at:
-                  type: date
   "/learning_paths":
     get:
       summary: Returns a list of learning paths
@@ -716,8 +704,6 @@ paths:
                   required: true
                 published:
                   type: boolean
-                views_count:
-                  type: integer
               required:
               - name
               - description
@@ -798,8 +784,6 @@ paths:
                   required: true
                 published:
                   type: boolean
-                views_count:
-                  type: integer
   "/talents":
     get:
       summary: Retrieves all talents

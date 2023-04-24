@@ -93,7 +93,6 @@ RSpec.describe LearningPathsController, type: :request do
                 duration_in_weeks: { type: :integer },
                 difficulty_level: { type: :string, enum: %w[beginner intermediate advanced expert], required: true },
                 published: { type: :boolean },
-                views_count: { type: :integer }
               },
               required: [ 'name', 'description', 'duration_in_weeks', 'difficulty_level', 'published' ]
             }
@@ -123,7 +122,6 @@ RSpec.describe LearningPathsController, type: :request do
                 duration_in_weeks: { type: :integer },
                 difficulty_level: { type: :string, enum: %w[beginner intermediate advanced expert], required: true },
                 published: { type: :boolean },
-                views_count: { type: :integer }
               }
             }
 
