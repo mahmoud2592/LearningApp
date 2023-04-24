@@ -4,6 +4,9 @@ class Course < ApplicationRecord
   before_validation :set_slug
   after_save :update_learning_path_duration
 
+  attr_accessor :type  # add this line to define the virtual attribute
+
+
   belongs_to :author
   belongs_to :talent, class_name: 'Talent', optional: true
   has_many :talents
