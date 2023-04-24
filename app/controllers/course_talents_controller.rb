@@ -47,6 +47,6 @@ class CourseTalentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def course_talent_params
-      params.require(:course_talent).permit(:course_id, :talent_id)
+      params.require(:course_talent).permit(:course_id, :talent_id, :completed)
     end
 end
