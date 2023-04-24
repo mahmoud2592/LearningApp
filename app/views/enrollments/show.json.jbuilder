@@ -12,7 +12,7 @@ json.learning_path do
   json.total_views_count @enrollment.learning_path.total_views_count
   json.average_rating @enrollment.learning_path.average_rating
   json.learning_path_courses @enrollment.learning_path.learning_path_courses do |learning_path_course|
-    json.extract! learning_path_course, :id, :learning_path_id, :course_id, :sequence, :required, :status, :start_date, :end_date, :rating, :completed_at
+    json.extract! learning_path_course, :id, :learning_path_id, :course_id, :sequence, :required, :status, :start_date, :end_date, :rating
     json.completion_rate learning_path_course.completion_rate
   end
 end

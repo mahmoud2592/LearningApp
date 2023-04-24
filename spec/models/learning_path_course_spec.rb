@@ -43,8 +43,8 @@ RSpec.describe LearningPathCourse, type: :model do
 
   describe ".completed" do
     it "returns all completed learning path courses" do
-      completed_lpc = FactoryBot.create(:learning_path_course, learning_path: learning_path, course: course, completed_at: Time.current)
-      FactoryBot.create(:learning_path_course, learning_path: learning_path, course: FactoryBot.create(:course), completed_at: nil)
+      completed_lpc = FactoryBot.create(:learning_path_course, learning_path: learning_path, course: course)
+      FactoryBot.create(:learning_path_course, learning_path: learning_path, course: FactoryBot.create(:course))
 
       expect(LearningPathCourse.completed).to include(completed_lpc)
     end
